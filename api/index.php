@@ -18,7 +18,6 @@ if (isset($_SERVER['HTTP_ORIGIN'])) {
 
 // Database
 R::setup($db, $username, $password);
-//R::setup('mysql:host=challe.se.mysql;dbname=challe_se','challe_se', '#N.pCS4#');
 R::freeze(true);
 
 $root_url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
