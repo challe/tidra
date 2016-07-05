@@ -22,3 +22,4 @@ doc/api/
 *.iws
 
 config/
+api/config.php
