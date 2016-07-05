@@ -29,14 +29,15 @@ class LoggedInRouterOutlet extends RouterOutlet  {
     ];
   }
 
-  activate(ComponentInstruction instruction) {
-    if (this._canActivate(instruction.urlPath)) {
+  activate(ComponentInstruction instruction) async {
+    if (await this._canActivate(instruction.urlPath)) {
       return super.activate(instruction);
     }
 
-    //if(!instruction.urlPath.contains("login")) {
+    // The path itself can not be login, or else we would be looping forever
+    if(!instruction.urlPath.contains("login")) {
       this._parentRouter.navigate(['Login', {'page': instruction.urlPath}]);
-    //}
+    }
   }
 
   _canActivate(String url) async {
@@ -44,8 +45,8 @@ class LoggedInRouterOutlet extends RouterOutlet  {
     // We are only interested in checking the page, not the parameters
     String page = (url.indexOf("/") != -1) ? url.substring(0, url.indexOf("/")) : url;
 
-    bool isLoggedIn = true; // await this._userService.isLoggedIn();
+    bool isLoggedIn = await this._userService.isLoggedIn();
 
-    return this.publicRoutes.indexOf(page) != -1 || isLoggedIn;
+    return (this.publicRoutes.indexOf(page) != -1 || isLoggedIn);
   }
 }
