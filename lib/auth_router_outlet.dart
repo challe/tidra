@@ -1,11 +1,7 @@
-import 'dart:html';
-import 'dart:math';
-
 import 'package:angular2/angular2.dart';
 import 'package:angular2/router.dart';
 
 import 'package:tidra/services/user.dart';
-
 
 @Directive(
   selector: 'auth-router-outlet'

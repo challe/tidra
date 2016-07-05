@@ -44,14 +44,14 @@ class ExampleMiddleware
      */
     public function __invoke($request, $response, $next)
     {
-        /*$key = "TheS3cretTid4keY";
+        /*
 
         $requestHeaders = apache_request_headers();
         $jwt = (array_key_exists('Authorization', $requestHeaders) ? $requestHeaders['Authorization'] : null;
 
         print_r($jwt);
 
-        $decoded = JWT::decode($jwt, $key, array('HS256'));
+        $decoded = JWT::decode($jwt, $jwtKey, array('HS256'));
 
         print_r($decoded);
 
@@ -351,16 +351,14 @@ $app->post('/auth', function (Request $request, Response $response) use ($root_u
         ->write(json_encode($obj, JSON_UNESCAPED_SLASHES));
 });
 
-$app->get('/auth/validate/{token}', function (Request $request, Response $response) use ($root_url) {
+$app->get('/auth/validate/{token}', function (Request $request, Response $response) use ($root_url, $jwtKey) {
     $token = $request->getAttribute('token');
-
-    $key = "TheS3cretTid4keY";
 
     //$requestHeaders = apache_request_headers();
     //$jwt = (array_key_exists('Authorization', $requestHeaders)) ? $requestHeaders['Authorization'] : null;
 
     try{
-        $decoded = JWT::decode($token, $key, array('HS256'));
+        $decoded = JWT::decode($token, $jwtKey, array('HS256'));
         $obj = ['error' => false, 'valid' => true];
 
     }catch(Exception $e){
