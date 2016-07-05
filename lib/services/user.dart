@@ -60,14 +60,10 @@ class UserService {
       if(decoded["error"] == false && decoded["valid"] == true) {
         isLoggedIn = true;
       }
-
     }
     else {
       isLoggedIn = false;
     }
-
-    window.console.log("is logged in:");
-    window.console.log(isLoggedIn);
 
     return isLoggedIn;
   }
