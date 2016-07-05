@@ -1,0 +1,49 @@
+<h1>Hantera anställda</h1>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Ändra befintlig</h2>
+        <div class="well">
+            <div class="bg-success" [hidden]="!updateSuccess">
+                Ändringen är nu genomförd!
+            </div>
+
+            <form (ngSubmit)="onUpdate()">
+                <div class="form-group">
+                    <label for="user">Hantera anställda</label>
+                    <select class="form-control" id="user" name="user" (change)="onChooseExisting($event.target.value)">
+                        <option value="{{user.id}}" *ngFor="let user of users">{{user.name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="existingName">Namn</label>
+                    <div class="input-group">
+                        <input placeholder="Namn" class="form-control" [(ngModel)]="existingUser.name" type="text" name="existingName" id="existingName">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Ändra</button>
+            </form>
+        </div>
+
+        <h2>Skapa ny</h2>
+        <div class="well">
+            <div class="bg-success" [hidden]="!createSuccess">
+                Ny anställd är nu skapad!
+            </div>
+
+            <form (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label for="newName">Namn</label>
+                    <div class="input-group">
+                        <input placeholder="Namn" class="form-control" [(ngModel)]="newUser.name" type="text" name="newName" id="newName">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Skapa ny</button>
+            </form>
+        </div>
+
+    </div>
+</div>

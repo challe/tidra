@@ -1,0 +1,60 @@
+<h1>Tidrapportering</h1>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="bg-success" [hidden]="!submitted">
+            Formuläret är nu ifyllt!
+        </div>
+
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="reporter">Tidrapportör</label>
+                <select class="form-control" id="reporter" name="reporter" [(ngModel)]="model.user_id">
+                    <option value="{{user.id}}" *ngFor="let user of users">{{user.name}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="timelogDate">Datum</label>
+                <input class="form-control" type="date" [(ngModel)]="model.date" name="timelogDate" id="timelogDate" placeholder="yyyy-MM-dd" min="2013-01-01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="customer">Kund</label>
+                <select class="form-control" id="customer" name="customer" [(ngModel)]="model.customer_id">
+                    <option value="{{customer.id}}" *ngFor="let customer of customers">{{customer.name}}</option>
+                </select>
+            </div>
+
+            <label for="nrOfHours">Tid</label>
+            <div class="form-inline form-group">
+                <div class="input-group form-group">
+                    <label class="sr-only" for="nrOfHours">Tid</label>
+                    <input placeholder="Antal timmar" class="form-control" [(ngModel)]="model.hours" type="text" name="nrOfHours" id="nrOfHours">
+                    <div class="input-group-addon">timmar</div>
+                </div>
+
+                <div class="input-group form-group">
+                    <label class="sr-only" for="nrOfMinutes">Antal minuter</label>
+                    <input placeholder="Antal minuter" class="form-control" [(ngModel)]="model.minutes" type="text" name="nrOfMinutes" id="nrOfMinutes">
+                    <div class="input-group-addon">minuter</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="nrOfKilometers">Resor med egen bil</label>
+                <div class="input-group">
+                    <input placeholder="Antal kilometer" class="form-control" [(ngModel)]="model.kilometers" type="text" name="nrOfKilometers" id="nrOfKilometers">
+                    <div class="input-group-addon">kilometer</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="text">Övrigt</label>
+                <textarea class="form-control" [(ngModel)]="model.text" name="text" id="text"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Klar</button>
+        </form>
+    </div>
+</div>

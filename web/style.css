@@ -1,0 +1,16 @@
+.nav {
+    margin: 20px 0px;
+}
+
+.nav-tabs li.right {
+    float: right;
+}
+.nav-tabs li.right ul {
+    right: 0;
+    left: initial;
+}
+
+.bg-success {
+    padding: 15px;
+    margin-bottom: 20px;
+}

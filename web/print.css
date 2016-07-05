@@ -1,0 +1,11 @@
+button, .nav {
+    display: none !important;
+}
+
+.panel { border: none !important; }
+.panel-body { padding: 0 !important; }
+.form-control {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow:    none !important;
+    box-shadow:         none !important;
+}

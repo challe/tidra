@@ -1,0 +1,49 @@
+<h1>Hantera kunder/projekt</h1>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h2>Ändra befintlig</h2>
+        <div class="well">
+            <div class="bg-success" [hidden]="!updateSuccess">
+                Ändringen är nu genomförd!
+            </div>
+
+            <form (ngSubmit)="onUpdate()">
+                <div class="form-group">
+                    <label for="customer">Hantera kunder/projekt</label>
+                    <select class="form-control" id="customer" name="customer" (change)="onChooseExisting($event.target.value)">
+                        <option value="{{customer.id}}" *ngFor="let customer of customers">{{customer.name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="existingName">Namn</label>
+                    <div class="input-group">
+                        <input placeholder="Namn" class="form-control" [(ngModel)]="existingCustomer.name" type="text" name="existingName" id="existingName">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Ändra</button>
+            </form>
+        </div>
+
+        <h2>Skapa ny</h2>
+        <div class="well">
+            <div class="bg-success" [hidden]="!createSuccess">
+                Ny kund är nu skapad!
+            </div>
+
+            <form (ngSubmit)="onCreate()">
+                <div class="form-group">
+                    <label for="newName">Namn</label>
+                    <div class="input-group">
+                        <input placeholder="Namn" class="form-control" [(ngModel)]="newCustomer.name" type="text" name="newName" id="newName">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Skapa ny</button>
+            </form>
+        </div>
+
+    </div>
+</div>

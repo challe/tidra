@@ -1,0 +1,67 @@
+<h2>Fakturaunderlag</h2>
+
+<print-button></print-button>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="well">
+            <form (ngSubmit)="onSubmit()">
+                <label for="fromDate">Tidsperiod</label>
+                <div class="form-inline form-group">
+                    <div class="input-group form-group">
+                        <label class="sr-only" for="fromDate">Från</label>
+                        <div class="input-group-addon">Från</div>
+                        <input class="form-control" type="date" name="fromDate" id="fromDate" placeholder="yyyy-MM-dd" min="2013-01-01" [(ngModel)]="model.from_date" required>
+                    </div>
+
+                    <div class="input-group form-group">
+                        <label class="sr-only" for="toDate">Till</label>
+                        <div class="input-group-addon">Till</div>
+                        <input class="form-control" type="date" name="toDate" id="toDate" placeholder="yyyy-MM-dd" min="2013-01-01" [(ngModel)]="model.to_date" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="customer">Kund/projekt</label>
+                    <select class="form-control" id="customer" name="customer" [(ngModel)]="model.customer_id">
+                        <option value="{{customer.id}}" *ngFor="let customer of customers">{{customer.name}}</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Klar</button>
+            </form>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <td><strong>Periodens timmar</strong></td>
+                <td>{{model.hours_period}}</td>
+            </tr>
+            <tr>
+                <td><strong>Periodens resor med egen bil (km)</strong></td>
+                <td>{{model.kilometers_period}}</td>
+            </tr>
+            <tr>
+                <td><strong>Projektets totala timmar</strong></td>
+                <td>{{model.hours_total}}</td>
+            </tr>
+            <tr>
+                <td><strong>Projektets totala resor med egen bil (km)</strong></td>
+                <td>{{model.kilometers_total}}</td>
+            </tr>
+        </table>
+
+        <h4>Anställda som deltagit i projektet under perioden</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Anställd</th>
+                <th>Antal timmar</th>
+            </tr>
+            <tr *ngFor="let user of model.users_involved">
+                <td>{{user.name}}</td>
+                <td>{{user.hours_worked}}</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
