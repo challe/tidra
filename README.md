@@ -1,0 +1,2 @@
+# tidra
+Time logging application
