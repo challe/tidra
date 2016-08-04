@@ -9,7 +9,7 @@ import 'package:tidra/models/timelog.dart';
 
 @Injectable()
 class TimelogService {
-  String _url = Config.api;
+  String _url = Config.api();
 
   Future<List<Timelog>> getTimelogs() async {
     final String response = await HttpRequest.getString(_url + "timelogs");

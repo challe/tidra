@@ -5,6 +5,7 @@
 import 'package:angular2/platform/browser.dart';
 import 'package:http/browser_client.dart';
 import 'package:angular2/router.dart' show ROUTER_PROVIDERS;
+import 'package:angular2/platform/common.dart';
 
 import 'package:tidra/components/app_component/app_component.dart';
 
@@ -15,7 +16,9 @@ BrowserClient HttpClientBackendServiceFactory() => new BrowserClient();
 main() {
   bootstrap(AppComponent, const [
     ROUTER_PROVIDERS,
-    const Provider(BrowserClient, useFactory: HttpClientBackendServiceFactory, deps: const [])
+    const Provider(LocationStrategy, useClass: HashLocationStrategy),
+    const Provider(BrowserClient,
+        useFactory: HttpClientBackendServiceFactory, deps: const [])
   ]);
 
 }

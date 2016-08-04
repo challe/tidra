@@ -39,8 +39,9 @@ class HandleUsersComponent implements OnInit {
     updateSuccess = true;
   }
 
-  onCreate() {
-    _userService.createUser(newUser);
+  onCreate() async {
+    newUser  = await _userService.createUser(newUser);
+    //users.add(newUser);
     createSuccess = true;
   }
 

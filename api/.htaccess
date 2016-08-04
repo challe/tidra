@@ -4,3 +4,7 @@
  RewriteCond %{REQUEST_FILENAME} !-f
  RewriteCond %{REQUEST_FILENAME} !-d
  RewriteRule ^ index.php [QSA,L]
+
+<Limit GET POST PUT DELETE>
+  Allow from all
+</Limit>

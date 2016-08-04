@@ -9,7 +9,7 @@ import 'package:tidra/models/invoice_details.dart';
 
 @Injectable()
 class InvoiceDetailsService {
-  static const String _url = Config.api + "invoicedetails/";
+  static String _url = Config.api() + "invoicedetails/";
 
   Future<InvoiceDetails> getInvoiceDetails(int customer_id, String from_date, String to_date) async {
     final String response = await HttpRequest.getString(_url + customer_id.toString() + "/" + from_date + "/" + to_date);

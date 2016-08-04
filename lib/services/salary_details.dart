@@ -9,7 +9,7 @@ import 'package:tidra/models/salary_details.dart';
 
 @Injectable()
 class SalaryDetailsService {
-  String _url = Config.api + "salarydetails/";
+  String _url = Config.api() + "salarydetails/";
 
   Future<SalaryDetails> getSalaryDetails(int user_id, String from_date, String to_date) async {
     final String response = await HttpRequest.getString(_url + user_id.toString() + "/" + from_date + "/" + to_date);

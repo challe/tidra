@@ -9,7 +9,7 @@ import 'package:tidra/models/absence_type.dart';
 
 @Injectable()
 class AbsenceTypeService {
-  String _url = Config.api + "absencetypes";
+  String _url = Config.api() + "absencetypes";
 
   Future<List<AbsenceType>> getAbsenceTypes() async {
     final String response = await HttpRequest.getString(_url);

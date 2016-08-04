@@ -12,7 +12,7 @@ import 'package:tidra/models/auth.dart';
 @Injectable()
 class AuthService {
   final BrowserClient _http;
-  String _url = Config.api;
+  String _url = Config.api();
   Auth auth;
 
   AuthService(this._http);

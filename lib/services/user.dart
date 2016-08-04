@@ -9,7 +9,7 @@ import 'package:tidra/models/user.dart';
 
 @Injectable()
 class UserService {
-  String _url = Config.api;
+  String _url = Config.api();
 
   Future<List<User>> getUsers() async {
     final String response = await HttpRequest.getString(_url + "users");
@@ -28,14 +28,15 @@ class UserService {
     return new User.fromJson(decoded);
   }
 
-  Future<List<User>> createUser(User user) async {
+  Future<User> createUser(User user) async {
     var request = new HttpRequest();
     request.open("POST", _url + 'users');
     var data = JSON.encode(user);
 
-    var users = await request.send(data);
+    // TODO: Retrieve the id of the newly created user and add it to user
+    var id = await request.send(data);
 
-    return users;
+    return user;
   }
 
   Future<bool> updateUser(User user) async {

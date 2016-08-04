@@ -8,7 +8,7 @@ import 'package:tidra/models/customer.dart';
 
 @Injectable()
 class CustomerService {
-  String _url = Config.api;
+  String _url = Config.api();
 
   Future<List<Customer>> getCustomers() async {
     final String response = await HttpRequest.getString(_url + "customers");

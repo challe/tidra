@@ -1,5 +1,5 @@
 <?php
-require("/vendor/autoload.php");
+require("vendor/autoload.php");
 require 'rb.php';
 require 'config.php';
 
@@ -321,24 +321,23 @@ $app->get('/absencetypes', function (Request $request, Response $response) {
 /*
     Auth
 */
-$app->post('/auth', function (Request $request, Response $response) use ($root_url) {
+$app->post('/auth', function (Request $request, Response $response) use ($root_url, $jwtKey) {
     $json = $request->getBody();
     $input = json_decode($json, true);
 
     $username = $input["username"];
     $password = $input["password"];
 
-    $sql = "SELECT * FROM user where email = '" . $username . "' AND password = '" . $password . "' ";
+    $sql = "SELECT * FROM user where username = '" . $username . "' AND password = '" . $password . "' ";
 
     $user = R::getAll($sql);
 
     if (count($user) == 1) {
-        $key = "TheS3cretTid4keY";
         $token = array(
             "name" => $user[0]["name"]
         );
 
-        $jwt = JWT::encode($token, $key);
+        $jwt = JWT::encode($token, $jwtKey);
 
         $obj = ["error" => false, 'token' => $jwt];
     }

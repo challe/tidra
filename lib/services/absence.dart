@@ -9,7 +9,7 @@ import 'package:tidra/models/absence.dart';
 
 @Injectable()
 class AbsenceService {
-  String _url = Config.api + "absence";
+  String _url = Config.api() + "absence";
 
   Future<bool> createAbsence(Absence absence) async {
     var request = new HttpRequest();
