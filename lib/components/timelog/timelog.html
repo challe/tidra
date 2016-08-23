@@ -7,12 +7,7 @@
         </div>
 
         <form (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="reporter">Tidrapportör</label>
-                <select class="form-control" id="reporter" name="reporter" [(ngModel)]="model.user_id">
-                    <option value="{{user.id}}" *ngFor="let user of users">{{user.name}}</option>
-                </select>
-            </div>
+            <b>Inloggad som: {{currentUser.name}}</b><br><br>
 
             <div class="form-group">
                 <label for="timelogDate">Datum</label>

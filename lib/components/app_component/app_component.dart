@@ -5,13 +5,16 @@ import 'dart:html';
 import 'package:angular2/angular2.dart';
 import 'package:angular2/router.dart';
 
+import 'package:tidra/components/home/home.dart';
 import 'package:tidra/components/timelog/timelog.dart';
 import 'package:tidra/components/absence/absence.dart';
+import 'package:tidra/components/reports/my_timelog_details/my_timelog_details.dart';
 import 'package:tidra/components/reports/invoice_details/invoice_details.dart';
 import 'package:tidra/components/reports/salary_details/salary_details.dart';
 import 'package:tidra/components/administration/handle_customers/handle_customers.dart';
 import 'package:tidra/components/administration/handle_users/handle_users.dart';
 import 'package:tidra/components/login/login.dart';
+import 'package:tidra/components/logout/logout.dart';
 import 'package:tidra/services/user.dart';
 
 import 'package:tidra/auth_router_outlet.dart';
@@ -22,13 +25,16 @@ import 'package:tidra/auth_router_outlet.dart';
     directives: const[CORE_DIRECTIVES, ROUTER_DIRECTIVES, LoggedInRouterOutlet],
     providers: const[UserService])
 @RouteConfig(const [
-  const Route(path: '/timelog', name: 'Timelog', component: TimelogComponent, useAsDefault: true),
+  const Route(path: '/home', name: 'Home', component: HomeComponent, useAsDefault: true),
+  const Route(path: '/timelog', name: 'Timelog', component: TimelogComponent),
   const Route(path: '/absence', name: 'Absence', component: AbsenceComponent),
+  const Route(path: '/mytimelogdetails', name: 'MyTimelogDetails', component: MyTimelogDetailsComponent),
   const Route(path: '/invoicedetails', name: 'InvoiceDetails', component: InvoiceDetailsComponent),
   const Route(path: '/salarydetails', name: 'SalaryDetails', component: SalaryDetailsComponent),
   const Route(path: '/handlecustomers', name: 'HandleCustomers', component: HandleCustomersComponent),
   const Route(path: '/handleusers', name: 'HandleUsers', component: HandleUsersComponent),
-  const Route(path: '/login/:page', name: 'Login', component: LoginComponent)
+  const Route(path: '/login/:page', name: 'Login', component: LoginComponent),
+  const Route(path: '/logout', name: 'Logout', component: LogoutComponent)
 ])
 class AppComponent {
   AppComponent() {

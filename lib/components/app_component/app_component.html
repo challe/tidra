@@ -1,7 +1,9 @@
 <ul class="nav nav-tabs">
-    <li role="presentation" class="active" (click)="menuClick($event.target)"><a [routerLink]="['Timelog']">Tidrapportera</a></li>
+    <li role="presentation" class="active" (click)="menuClick($event.target)"><a [routerLink]="['Home']">Hem</a></li>
+    <li role="presentation" (click)="menuClick($event.target)"><a [routerLink]="['Timelog']">Tidrapportera</a></li>
     <li role="presentation" (click)="menuClick($event.target)"><a [routerLink]="['Absence']">Frånvaro</a></li>
 
+    <li role="presentation" class="right" (click)="menuClick($event.target)"><a [routerLink]="['Logout']">Logga ut</a></li>
     <li role="presentation" class="dropdown right" (click)="menuClick($event.target)">
         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             Administration <span class="caret"></span>
@@ -17,6 +19,7 @@
             Rapporter <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
+            <li class="dropdown"><a [routerLink]="['MyTimelogDetails']">Min tidrapportering</a></li>
             <li class="dropdown"><a [routerLink]="['SalaryDetails']">Löneunderlag</a></li>
             <li class="dropdown"><a [routerLink]="['InvoiceDetails']">Fakturaunderlag</a></li>
         </ul>

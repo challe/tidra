@@ -32,7 +32,7 @@ class HandleUsersComponent implements OnInit {
   }
 
   onChooseExisting(id) =>
-      existingUser = users.firstWhere((customer) => customer.id == id);
+      existingUser = users.firstWhere((user) => user.id == id);
 
   onUpdate() {
     _userService.updateUser(existingUser);

@@ -49,8 +49,8 @@ class UserService {
     return true;
   }
 
-  Future<bool> isLoggedIn() async {
-    bool isLoggedIn = false;
+  Future<Map<String, dynamic>> getUserInformation() async {
+    Map<String, dynamic> userInformation = new Map<String, dynamic>();
     Storage localStorage = window.localStorage;
     String token = localStorage['token'];
 
@@ -59,14 +59,17 @@ class UserService {
       final decoded = JSON.decode(response);
 
       if(decoded["error"] == false && decoded["valid"] == true) {
-        isLoggedIn = true;
+        userInformation["is_logged_in"] = true;
+        userInformation["is_admin"] = (decoded["is_admin"] == "1") ? true : false;
+        userInformation["user_id"] = decoded["user_id"];
       }
     }
     else {
-      isLoggedIn = false;
+      userInformation["is_logged_in"] = false;
+      userInformation["is_admin"] = false;
+      userInformation["user_id"] = null;
     }
 
-    return isLoggedIn;
+    return userInformation;
   }
-
 }

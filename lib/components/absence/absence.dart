@@ -21,7 +21,7 @@ class AbsenceComponent implements OnInit {
   AbsenceService _absenceService;
   AbsenceTypeService _absenceTypeService;
 
-  List<User> users;
+  User currentUser = new User();
   List<AbsenceType> absence_types;
   Absence model = new Absence();
   bool submitted = false;
@@ -29,13 +29,16 @@ class AbsenceComponent implements OnInit {
   AbsenceComponent(this._userService, this._absenceService, this._absenceTypeService);
 
   ngOnInit() async {
-    getUsers();
+    setCurrentUser();
     getAbsenceTypes();
   }
 
-  getUsers() async {
-    users = await _userService.getUsers();
-    model.user_id = users.first.id;
+  setCurrentUser() async {
+    Map<String, dynamic> info = new Map<String, dynamic>();
+    info = await this._userService.getUserInformation();
+
+    model.user_id = int.parse(info["user_id"]);
+    this.currentUser = await this._userService.getUser(model.user_id);
   }
 
   getAbsenceTypes() async {

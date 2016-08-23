@@ -76,6 +76,8 @@ $app->get('/users/{id}', function (Request $request, Response $response) {
     $user = R::find('user', 'id = ?', [$id]);
     $user = R::exportAll($user);
 
+    $user = $user[0];
+
     return $response->withStatus(200)
         ->withHeader('Content-Type', 'application/json')
         ->write(json_encode($user, JSON_UNESCAPED_SLASHES));
@@ -328,13 +330,16 @@ $app->post('/auth', function (Request $request, Response $response) use ($root_u
     $username = $input["username"];
     $password = $input["password"];
 
-    $sql = "SELECT * FROM user where username = '" . $username . "' AND password = '" . $password . "' ";
+    $sql = "SELECT id, name, ifnull(is_admin, 0) as is_admin ";
+    $sql .= "FROM user where username = '" . $username . "' AND password = '" . $password . "' ";
 
     $user = R::getAll($sql);
 
     if (count($user) == 1) {
         $token = array(
-            "name" => $user[0]["name"]
+            "name" => $user[0]["name"],
+            "is_admin" => $user[0]["is_admin"],
+            "user_id" => $user[0]["id"]
         );
 
         $jwt = JWT::encode($token, $jwtKey);
@@ -358,7 +363,11 @@ $app->get('/auth/validate/{token}', function (Request $request, Response $respon
 
     try{
         $decoded = JWT::decode($token, $jwtKey, array('HS256'));
-        $obj = ['error' => false, 'valid' => true];
+
+        $obj = ['error' => false,
+            'valid' => true,
+            'is_admin' => $decoded->is_admin,
+            'user_id' => $decoded->user_id];
 
     }catch(Exception $e){
         $obj = ['error' => true, 'message' => "Invalid token"];
@@ -368,10 +377,6 @@ $app->get('/auth/validate/{token}', function (Request $request, Response $respon
         ->withHeader('Content-Type', 'application/json')
         ->write(json_encode($obj, JSON_UNESCAPED_SLASHES));
 });
-
-
-
-
 
 $app->run();
 ?>

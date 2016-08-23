@@ -20,7 +20,7 @@ class TimelogComponent implements OnInit {
   TimelogService _timelogService;
   CustomerService _customerService;
 
-  List<User> users;
+  User currentUser = new User();
   List<Customer> customers;
   Timelog model = new Timelog();
   bool submitted = false;
@@ -28,7 +28,7 @@ class TimelogComponent implements OnInit {
   TimelogComponent(this._userService, this._timelogService, this._customerService);
 
   ngOnInit() async {
-    getUsers();
+    setCurrentUser();
     getCustomers();
   }
 
@@ -41,9 +41,12 @@ class TimelogComponent implements OnInit {
     submitted = true;
   }
 
-  getUsers() async {
-    users = await _userService.getUsers();
-    model.user_id = users.first.id;
+  setCurrentUser() async {
+    Map<String, dynamic> info = new Map<String, dynamic>();
+    info = await this._userService.getUserInformation();
+
+    model.user_id = int.parse(info["user_id"]);
+    this.currentUser = await this._userService.getUser(model.user_id);
   }
 
   getCustomers() async {

@@ -1,0 +1,73 @@
+<h2>Min tidrapportering</h2>
+
+<print-button></print-button>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="well">
+            <form (ngSubmit)="onSubmit()">
+                <b>Inloggad som: {{currentUser.name}}</b><br><br>
+
+                <label for="fromDate">Tidsperiod</label>
+                <div class="form-inline form-group">
+                    <div class="input-group form-group">
+                        <label class="sr-only" for="fromDate">Från</label>
+                        <div class="input-group-addon">Från</div>
+                        <input class="form-control" type="date" name="fromDate" id="fromDate" placeholder="yyyy-MM-dd" min="2013-01-01" [(ngModel)]="model.from_date" required>
+                    </div>
+
+                    <div class="input-group form-group">
+                        <label class="sr-only" for="toDate">Till</label>
+                        <div class="input-group-addon">Till</div>
+                        <input class="form-control" type="date" name="toDate" id="toDate" placeholder="yyyy-MM-dd" min="2013-01-01" [(ngModel)]="model.to_date" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Klar</button>
+            </form>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <td><strong>Arbetade timmar</strong></td>
+                <td>{{model.hours}}</td>
+            </tr>
+            <tr>
+                <td><strong>Resor med egen bil (km)</strong></td>
+                <td>{{model.kilometers}}</td>
+            </tr>
+            <tr>
+                <td><strong>Antal sjukdagar</strong></td>
+                <td>{{model.sjuk}}</td>
+            </tr>
+            <tr>
+                <td><strong>Antal vab-dagar</strong></td>
+                <td>{{model.vab}}</td>
+            </tr>
+            <tr>
+                <td><strong>Antal semesterdagar</strong></td>
+                <td>{{model.sem}}</td>
+            </tr>
+        </table>
+
+        <h4>Dagar</h4>
+        <table class="table table-striped">
+            <tr>
+                <th>Dag</th>
+                <th>Dag namn</th>
+                <th>Antal timmar</th>
+                <th>Sjukdagar</th>
+                <th>Vab-dagar</th>
+                <th>Semesterdagar</th>
+            </tr>
+            <tr *ngFor="let day of model.days">
+                <td>{{day.dayAsString}}</td>
+                <td>{{day.day_name}}</td>
+                <td>{{day.hours_worked}}</td>
+                <td>{{day.sjuk}}</td>
+                <td>{{day.vab}}</td>
+                <td>{{day.sem}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

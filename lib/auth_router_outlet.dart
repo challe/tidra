@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:angular2/angular2.dart';
 import 'package:angular2/router.dart';
 
@@ -8,6 +9,7 @@ import 'package:tidra/services/user.dart';
 )
 class LoggedInRouterOutlet extends RouterOutlet  {
   var publicRoutes;
+  var employeeRoutes;
   Router _parentRouter;
   UserService _userService;
 
@@ -20,8 +22,9 @@ class LoggedInRouterOutlet extends RouterOutlet  {
   ) : super(viewContainerRef, loader, parentRouter, nameAttr) {
     this._parentRouter = parentRouter;
     this._userService = userService;
-    this.publicRoutes = [
-      '', 'timelog', 'absence', 'login'
+    this.publicRoutes = ['', 'home', 'login', 'logout'];
+    this.employeeRoutes = [
+      '', 'timelog', 'absence', 'mytimelogdetails'
     ];
   }
 
@@ -37,12 +40,28 @@ class LoggedInRouterOutlet extends RouterOutlet  {
   }
 
   _canActivate(String url) async {
+    bool canActivate = false;
     // The url is the full url with parameters, for example login/salarydetails
     // We are only interested in checking the page, not the parameters
     String page = (url.indexOf("/") != -1) ? url.substring(0, url.indexOf("/")) : url;
 
-    bool isLoggedIn = await this._userService.isLoggedIn();
+    Map<String, dynamic> info = new Map<String, String>();
+    info = await this._userService.getUserInformation();
 
-    return (this.publicRoutes.indexOf(page) != -1 || isLoggedIn);
+    // If the page is public, it can activate
+    if(this.publicRoutes.indexOf(page) != -1) {
+      canActivate = true;
+    }
+    // If the page is only accessible for employees and you are logged in
+    else if(this.employeeRoutes.indexOf(page) != -1 && info["is_logged_in"])
+    {
+      canActivate = true;
+    }
+    // If the user is logged in and admin, the route does not matter
+    else if(info["is_logged_in"] && info["is_admin"]) {
+      canActivate = true;
+    }
+
+    return canActivate;
   }
 }
